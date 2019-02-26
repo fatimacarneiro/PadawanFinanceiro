@@ -1,9 +1,9 @@
 angular.module('starter').config(function($stateProvider, $urlRouterProvider){
-   
-  $urlRouterProvider.otherwise('movimentos');
-    
+
+  $urlRouterProvider.otherwise('cadastroUsuario');
+
     $stateProvider
-    
+
     .state('login',{
       url : '/login',
       templateUrl : 'templates/login.html',
