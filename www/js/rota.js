@@ -1,6 +1,6 @@
 angular.module('starter').config(function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise('cadastroUsuario');
+  $urlRouterProvider.otherwise('login');
 
     $stateProvider
 
