@@ -9,4 +9,8 @@ angular.module('starter')
 angular.module('starter')
 .controller('login', function(){
 
+});
+angular.module('starter')
+.controller('cadastroMovimentosmovimentos', function(){
+
 })

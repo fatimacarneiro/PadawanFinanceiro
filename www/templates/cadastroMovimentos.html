@@ -1,0 +1,40 @@
+<ion-view>
+  <ion-nav-title>Cadastro de Receitas/Despesas</ion-nav-title>
+  <ion-content class="conteudo" bg-controller="cadastroMovimentosController">
+
+    <form ng-submit>
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Descrição do movimento</span>
+          <input type="text" placeholder="Ex: compra caderno" required>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Valor</span>
+          <input type="number" placeholder="Ex: R$ 18,00" required>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Data</span required>
+          <input type="date" >
+        </label>
+        <label class="item item-input item-select">
+            <div class="input-label">
+              Tipo de Movimento
+            </div>
+            <select required>
+              <option disabled selected>Receita ou Despesa</option>
+              <option>Receita</option>
+              <option>Despesa</option>
+            </select>
+          </label>
+          </div>
+          <button class="button button-block button-positive" type="submit">
+              Novo Movimento
+          </button>
+    </form>
+      <div>
+        <button class="button button-block button-assertive" href="#">Cancelar</button>
+      </div>
+
+  </ion-content>
+
+</ion-view>

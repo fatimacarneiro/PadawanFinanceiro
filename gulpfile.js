@@ -1,27 +1,54 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var cleanCss = require('gulp-clean-css');
-var rename = require('gulp-rename');
+// var gulp = require('gulp');
+// var sass = require('gulp-sass');
+// var cleanCss = require('gulp-clean-css');
+// var rename = require('gulp-rename');
 
-var paths = {
-  sass: ['./scss/**/*.scss']
-};
+// var paths = {
+//   sass: ['./scss/**/*.scss']
+// };
 
-gulp.task('default', ['sass']);
+// var replace = require('replace');
+// var replaceFiles = ['./www/js/app.js'];
 
-gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
-    .pipe(sass())
-    .on('error', sass.logError)
-    .pipe(gulp.dest('./www/css/'))
-    .pipe(cleanCss({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'))
-    .on('end', done);
-});
 
-gulp.task('watch', ['sass'], function() {
-  gulp.watch(paths.sass, ['sass']);
-});
+// gulp.task('default', ['sass']);
+
+// gulp.task('sass', function(done) {
+//   gulp.src('./scss/ionic.app.scss')
+//     .pipe(sass())
+//     .on('error', sass.logError)
+//     .pipe(gulp.dest('./www/css/'))
+//     .pipe(cleanCss({
+//       keepSpecialComments: 0
+//     }))
+//     .pipe(rename({ extname: '.min.css' }))
+//     .pipe(gulp.dest('./www/css/'))
+//     .on('end', done);
+// });
+
+// gulp.task('watch', ['sass'], function() {
+//   gulp.watch(paths.sass, ['sass']);
+// });
+
+var replace = require('replace');
+var replaceFiles = ['./www/js/app.js'];
+
+gulp.task('add-proxy', function() {
+  return replace({
+    regex: "https://padawan-finance.herokuapp.com/transactions",
+    replacement: "http://localhost:8200/",
+    paths: replaceFiles,
+    recursive: false,
+    silent: false,
+  });
+})
+
+gulp.task('remove-proxy', function() {
+  return replace({
+    regex: "http://localhost:8200/services/cadastroMovimentosService.js",
+    replacement: "http://localhost:8200/",
+    paths: replaceFiles,
+    recursive: false,
+    silent: false,
+  });
+})

@@ -1,0 +1,14 @@
+{
+  "name": "proxyApiPi",
+  "app_id": "",
+  "https://padawan-finance.herokuapp.com/transactions": {
+    "target": "http://localhost:8200/",
+    "secure": false
+  },
+  "proxies": [
+    {
+      "path": "https://padawan-finance.herokuapp.com/transactions",
+      "proxyUrl": "http://localhost:8200/"
+    }
+  ]
+}

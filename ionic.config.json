@@ -1,7 +1,16 @@
 {
   "name": "padawanfinanceiro",
-  "integrations": {},
+  "api_id": "",
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic1",
+  "proxies": [
+    {
+      "path": "https://padawan-finance.herokuapp.com/transactions",
+      "proxyUrl": "http://localhost:8200/"
+    }
+  ],
   "watchPatterns": [
     "scss/**/*",
     "www/**/*",

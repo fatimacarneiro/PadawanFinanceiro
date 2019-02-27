@@ -1,6 +1,6 @@
 angular.module('starter').config(function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise('login');
+  $urlRouterProvider.otherwise('/cadastroMovimentos');
 
     $stateProvider
 
@@ -15,6 +15,11 @@ angular.module('starter').config(function($stateProvider, $urlRouterProvider){
       templateUrl : 'templates/movimentos.html',
       //controller: 'MovimentosController'
       })
+    .state('cadastroMovimentos',{
+      url : '/cadastroMovimentos',
+      templateUrl : 'templates/cadastroMovimentos.html',
+      //controller: 'CadastroMovimentosController'
+     })
 
     .state('cadastroUsuario',{
       url : '/cadastroUsuario',
