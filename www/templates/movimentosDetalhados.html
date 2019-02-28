@@ -3,7 +3,7 @@
     <ion-content>
         <div class="card">
             <div class="item item-divider">
-                {{movimentoEscolhido}}
+                {{movimentoEscolhido.tipo}} - {{movimentoEscolhido.data}}
             </div>
             <div class="item item-text-wrap">
                 {{movimentoEscolhido.descricao}}
@@ -12,20 +12,11 @@
                     <li class="item item-toggle">
                             R{{movimentoEscolhido.valor | currency }}
                             <label class="toggle toggle-assertive">
-                            <input type="checkbox">
-                            <div class="track">
-                                <div class="handle"></div>
-                            </div>
+                                <button ng-click="excluir()" class="button"><i class="icon ion-trash-a"></i></button>
                             </label>
                         </li>
                 </ul>
             </div>
-            <div class="item item-divider">
-                {{movimentoEscolhido.data}}
-            </div>
         </div>
     </ion-content>
-    <ion-footer-bar class="bar-stable">
-        <button ng-click="excluir" class="button"><i class="icon ion-trash-a"></i></button>
-    </ion-footer-bar>
 </ion-view>
