@@ -1,4 +1,4 @@
-angular.module('starter').controller('tabelaController', function($scope, movimentoService){
+angular.module('starter').controller('tabelaController', function($scope, movimentoService, $location){
     $scope.filtra = function(event){
 
         this.tabelaExibida = this.dadosTabela.filter((itemTabela) => itemTabela.descricao.match(event, 'i'));
@@ -11,5 +11,8 @@ angular.module('starter').controller('tabelaController', function($scope, movime
     }
 
     init();
+    $scope.mudaTelaCadastro = function (){
+        $location.path('/cadastroMovimentos');
+    }
     
 })
