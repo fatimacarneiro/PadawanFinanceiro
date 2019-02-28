@@ -1,38 +1,38 @@
 <ion-view>
   <ion-nav-title>Cadastro de Receitas/Despesas</ion-nav-title>
-  <ion-content class="conteudo" bg-controller="cadastroMovimentosController">
+  <ion-content class="conteudo" ng-controller="cadastroMovimentosController">
 
-    <form ng-submit>
+    <form>
       <div class="list">
         <label class="item item-input item-stacked-label">
           <span class="input-label">Descrição do movimento</span>
-          <input type="text" placeholder="Ex: compra caderno" required>
+          <input id="descricaoCadMovimento" ng-model="capturaDadosCadMovimento.description" type="text" placeholder="Ex: compra caderno" required>
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Valor</span>
-          <input type="number" placeholder="Ex: R$ 18,00" required>
+          <input id="valorCadMovimento" ng-model="capturaDadosCadMovimento.value" placeholder="Ex: 18,00" required pattern="\d+(\.|,\d{2})?" title="Siga o modelo 0000,00">
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Data</span required>
-          <input type="date" >
+          <input id="dataCadMovimento" ng-model="date"type="date" >
         </label>
         <label class="item item-input item-select">
             <div class="input-label">
               Tipo de Movimento
             </div>
-            <select required>
+            <select id="tipoCadMovimento" ng-model="capturaDadosCadMovimento.type" required>
               <option disabled selected>Receita ou Despesa</option>
-              <option>Receita</option>
-              <option>Despesa</option>
+              <option value="REVENUE">Receita</option>
+              <option value="EXPENSE">Despesa</option>
             </select>
           </label>
           </div>
-          <button class="button button-block button-positive" type="submit">
-              Novo Movimento
+          <button ng-click="salvarMovimento()" class="button button-block button-positive" >
+              Registrar Movimento
           </button>
     </form>
       <div>
-        <button class="button button-block button-assertive" href="#">Cancelar</button>
+        <button ng-click="mudaTela('/movimentos')" class="button button-block button-assertive">Cancelar</button>
       </div>
 
   </ion-content>

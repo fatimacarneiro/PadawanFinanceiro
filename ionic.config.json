@@ -7,8 +7,8 @@
   "type": "ionic1",
   "proxies": [
     {
-      "path": "https://padawan-finance.herokuapp.com/transactions",
-      "proxyUrl": "http://localhost:8200/"
+      "path": "/api",
+      "proxyUrl": "https://padawan-finance.herokuapp.com"
     }
   ],
   "watchPatterns": [
