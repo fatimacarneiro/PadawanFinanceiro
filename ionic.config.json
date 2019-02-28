@@ -1,9 +1,6 @@
 {
   "name": "padawanfinanceiro",
-<<<<<<< HEAD
   "api_id": "",
-=======
->>>>>>> 7fe61df2896ce4f02d2dd601d5dcd631481d0b22
   "integrations": {
     "cordova": {}
   },
