@@ -13,8 +13,14 @@ angular.module('starter').config(function($stateProvider, $urlRouterProvider){
     .state('movimentos',{
       url : '/movimentos',
       templateUrl : 'templates/movimentos.html',
-      //controller: 'MovimentosController'
+      controller: 'tabelaController'
       })
+    
+    .state('movimentosDetalhados', {
+      url : '/movimentosDetalhados/:movimento',
+      templateUrl : 'templates/movimentosDetalhados.html',
+      controller : 'movimentosDetalhadosController'
+    })
 
     .state('cadastroUsuario',{
       url : '/cadastroUsuario',

@@ -1,27 +1,17 @@
-<ion-view>
+<ion-view ng-controller="tabelaController">
     <ion-nav-title>Consultas de Receitas/Despesas</ion-nav-title>
     <ion-content>
-        <label class="item item-input item-stacked-label">
-            <input type="text" placeholder="Buscar Item">
-        </label>
-
-        <table class="table table-striped" ng-controller="tabelaController">
-                <thead>
-                  <tr>
-                    <th scope="col">Descrição</th>
-                    <th scope="col">Valor</th>
-                    <th scope="col">Data</th>
-                    <th scope="col">Tipo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="receita in tabelaTeste">
-                    <td>{{ receita.descricao }}</td>
-                    <td>{{ receita.valor }}</td>
-                    <td>{{ receita.data }}</td>
-                    <td>{{ receita.tipo }}</td>
-                  </tr>
-                </tbody>
-              </table>
+        <div class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input ng-change="filtra(textoPesquisa)" ng-model="textoPesquisa" type="search" placeholder="Buscar Item">
+            </label>
+        </div>
+        <ion-list>
+            <ion-item ng-repeat="movimento in tabelaExibida" href="#/movimentosDetalhados/{{movimento.id}}" >
+                {{movimento.descricao}} - {{movimento.data}}
+            </ion-item>
+        </ion-list>
     </ion-content>
+    
 </ion-view>
