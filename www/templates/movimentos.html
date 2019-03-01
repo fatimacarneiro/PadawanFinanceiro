@@ -9,7 +9,7 @@
         </div>
         <ion-list>
             <ion-item ng-repeat="movimento in tabelaExibida" href="#/movimentosDetalhados/{{movimento.id}}">
-                {{movimento.descricao}} - {{movimento.data}}
+                {{movimento.description}} - {{movimento.date}}
             </ion-item>
         </ion-list>
         <button class="button button-block button-positive" ng-click="mudaTelaCadastro()">Adicionar nova Receita/Despesa</button>

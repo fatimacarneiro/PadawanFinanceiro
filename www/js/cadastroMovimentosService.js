@@ -20,11 +20,9 @@ angular.module('starter')
 
       var raiz ='http://localhost:8100/';
 
-      $http.get(raiz + urlRequisicao).then(function successCallback(responseData) {
-        console.log(responseData)
-      }), function errorCallback(responseData) {
-        console.log(responseData)
-      }
+       return $http.get(raiz + urlRequisicao).then(function successCallback(responseData) {
+        return responseData.data
+      })
     }
 
 

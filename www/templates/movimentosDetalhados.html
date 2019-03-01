@@ -3,14 +3,14 @@
     <ion-content>
         <div class="card">
             <div class="item item-divider">
-                {{movimentoEscolhido.tipo}} - {{movimentoEscolhido.data}}
+                {{listaMovimento.type}} - {{listaMovimento.date}}
             </div>
             <div class="item item-text-wrap">
-                {{movimentoEscolhido.descricao}}
+                {{listaMovimento.description}}
     
                 <ul class="list">
                     <li class="item item-toggle">
-                            R{{movimentoEscolhido.valor | currency }}
+                            R{{listaMovimento.value | currency }}
                             <label class="toggle toggle-assertive">
                                 <button ng-click="excluir()" class="button"><i class="icon ion-trash-a"></i></button>
                             </label>

@@ -1,13 +1,16 @@
-angular.module('starter').controller('tabelaController', function($scope, movimentoService, $location){
+angular.module('starter').controller('tabelaController', function($scope, movimentoService, $location, movimentosService){
+
+     
+
     $scope.filtra = function(event){
 
-        this.tabelaExibida = this.dadosTabela.filter((itemTabela) => itemTabela.descricao.match(event, 'i'));
+        this.tabelaExibida = this.listaMovimento.filter((itemTabela) => itemTabela.description.match(event, 'i'));
     }
     function init() {
-
-        $scope.dadosTabela = movimentoService.obterDados();
-    
-        $scope.tabelaExibida = $scope.dadosTabela;
+        movimentosService.listar().then(function successCallback(dados){
+            $scope.listaMovimento = dados;
+            $scope.tabelaExibida = $scope.listaMovimento;
+        });
     }
 
     init();
