@@ -1,6 +1,5 @@
 angular.module('starter').service('consultaMovimentosService', function($http) {
-    
-    var lista = [];
+
     var url ='http://localhost:8100/'
     $http.defaults.headers.common.Authorization = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1MjczNTc4Mn0.v6pmDNuYW2F-iWB7096nv8tlW31NkFsFkRk_fvebY6o7GboGLWoIOrvCjuXNWhGpkEMy01Le_y9piqNooUfDyA';
   
@@ -15,16 +14,21 @@ angular.module('starter').service('consultaMovimentosService', function($http) {
   
         var raiz ='http://localhost:8100/';
   
-         return $http.get(raiz + urlRequisicao).then(function successCallback(responseData) {
-          return responseData.data
+            return $http.get(raiz + urlRequisicao).then(function successCallback(responseData) {
+            return responseData.data
         })
     }
 
     function apagar(id){
-        for(let i = 0; i < movimentos.length; i++){
-            if (movimentos[i].id === id.id){
-                return movimentos.splice(movimentos[i],1);
-            }
-        }
+        var urlRequisicao = 'api/transactions/';
+  
+        var raiz ='http://localhost:8100/';
+  
+            return $http.delete(raiz + urlRequisicao + id).then(function successCallback(responseData) {
+                alert("Movimento excluído com sucesso")
+                return window.location.reload();
+        }).catch(function errorCallback (){
+            alert('Não foi possível conectar ao servidor, por favor verifique sua conexão com a internet');
+        })
     }
 })

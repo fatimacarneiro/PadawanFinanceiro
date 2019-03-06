@@ -26,8 +26,7 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
         $location.path('/cadastroMovimentos');
     }
 
-    $scope.excluir = function() {
-        consultaMovimentosService.apagar($scope.movimentoEscolhido)
-       $location.path('/movimentos');
+    $scope.excluir = function(movimentoSelecionado) {
+        consultaMovimentosService.apagar(movimentoSelecionado.id)
     }
 })
