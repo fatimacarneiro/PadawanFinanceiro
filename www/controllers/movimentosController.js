@@ -1,4 +1,4 @@
-angular.module('starter').controller('tabelaController', function($scope, $location, consultaMovimentosService){
+angular.module('starter').controller('tabelaController', function($scope, $location, consultaMovimentosService, $ionicPopup){
 
     $scope.filtra = function(event){
 
@@ -27,6 +27,15 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
     }
 
     $scope.excluir = function(movimentoSelecionado) {
-        consultaMovimentosService.apagar(movimentoSelecionado.id)
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Excluir Movimento',
+            template: 'Tem certeza que deseja excluir esse movimento?'
+          });
+       
+          confirmPopup.then(function(res) {
+            if(res) {
+                consultaMovimentosService.apagar(movimentoSelecionado.id)
+            } 
+          });
     }
 })
