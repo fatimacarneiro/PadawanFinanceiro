@@ -8,7 +8,7 @@
             </label>
         </div>
         <ion-list>
-            <ion-item ng-repeat="movimento in tabelaExibida" href="#/movimentosDetalhados/{{movimento.id}}">
+            <ion-item ng-repeat="movimento in tabelaExibida" ng-click="movimentoSelecionado(movimento)" >
                 {{movimento.description}} - {{movimento.date}}
             </ion-item>
         </ion-list>

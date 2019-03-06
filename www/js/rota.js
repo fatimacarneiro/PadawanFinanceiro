@@ -11,7 +11,7 @@ angular.module('starter').config(function($stateProvider, $urlRouterProvider){
       })
     
     .state('movimentosDetalhados', {
-      url : '/movimentosDetalhados/:movimento',
+      url : '/movimentosDetalhados',
       templateUrl : 'templates/movimentosDetalhados.html',
       controller : 'movimentosDetalhadosController'
     })
