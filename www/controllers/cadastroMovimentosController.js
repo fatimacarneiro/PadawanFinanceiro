@@ -1,6 +1,5 @@
-angular.module('starter').controller('cadastroMovimentosController', function ($scope, movimentosService,$location){
+angular.module('starter').controller('cadastroMovimentosController', function ($scope, cadastroMovimentosService,$location){
 
-  // movimentosService.listar(); //  pi escreveu essa linha para testar a API José e Camila irão precisar
   $scope.date = null
   $scope.data = null
 
@@ -22,8 +21,7 @@ angular.module('starter').controller('cadastroMovimentosController', function ($
    this.date = dia + '/' + (mes++) + '/' + ano;
 
    this.capturaDadosCadMovimento.date = this.date;
-    console.log(this.date);
-   movimentosService.salvarMovimento(this.capturaDadosCadMovimento);
+    cadastroMovimentosService.salvarMovimento(this.capturaDadosCadMovimento);
 
   }
 

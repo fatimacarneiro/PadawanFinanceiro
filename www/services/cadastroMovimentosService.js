@@ -5,7 +5,6 @@ angular.module('starter')
       $http.defaults.headers.common.Authorization = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1MjczNTc4Mn0.v6pmDNuYW2F-iWB7096nv8tlW31NkFsFkRk_fvebY6o7GboGLWoIOrvCjuXNWhGpkEMy01Le_y9piqNooUfDyA';
     
       return {
-      listar,
       salvarMovimento: function(movimento)
       {
 

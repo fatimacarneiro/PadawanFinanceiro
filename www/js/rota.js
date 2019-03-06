@@ -9,12 +9,7 @@ angular.module('starter').config(function($stateProvider, $urlRouterProvider){
       templateUrl : 'templates/movimentos.html',
       controller: 'tabelaController'
       })
-    
-    .state('movimentosDetalhados', {
-      url : '/movimentosDetalhados',
-      templateUrl : 'templates/movimentosDetalhados.html',
-      controller : 'movimentosDetalhadosController'
-    })
+      
     .state('cadastroMovimentos',{
       url : '/cadastroMovimentos',
       templateUrl : 'templates/cadastroMovimentos.html',

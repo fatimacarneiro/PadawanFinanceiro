@@ -8,8 +8,24 @@
             </label>
         </div>
         <ion-list>
-            <ion-item ng-repeat="movimento in tabelaExibida" ng-click="movimentoSelecionado(movimento)" >
-                {{movimento.description}} - {{movimento.date}}
+            <ion-item ng-repeat="movimento in tabelaExibida">
+                <div class="card">
+                    <div class="item item-divider">
+                        {{movimento.type}} - {{movimento.date}}
+                    </div>
+                    <div class="item item-text-wrap">
+                        {{movimento.description}}
+            
+                        <ul class="list">
+                            <li class="item item-toggle">
+                                R{{movimento.value | currency }}
+                                <label class="toggle toggle-assertive">
+                                    <button ng-click="excluir()" class="button"><i class="icon ion-trash-a"></i></button>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </ion-item>
         </ion-list>
         <button class="button button-block button-positive" ng-click="mudaTelaCadastro()">Adicionar nova Receita/Despesa</button>
