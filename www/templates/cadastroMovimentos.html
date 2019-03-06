@@ -8,7 +8,7 @@
         <label class="item item-input item-stacked-label">
           <span class="input-label">Descrição do movimento</span>
           <input name="descricaoCadMovimento" id="descricaoCadMovimento" ng-model="capturaDadosCadMovimento.description" type="text" placeholder="Ex: compra caderno" ng-maxlength="30" required>
-          <span ng-show = "formCadMovimento.descricaoCadMovimento.$error.required"
+          <span ng-show = "apareceMensagem && formCadMovimento.descricaoCadMovimento.$error.required"
           class="form-control alert-danger">
           Descrição de Movimento obrigatório.
           </span>
@@ -21,11 +21,11 @@
         <label class="item item-input item-stacked-label">
           <span class="input-label">Valor</span>
           <input name="valorCadMovimento" id="valorCadMovimento" ng-model="capturaDadosCadMovimento.value" type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" placeholder="Ex: 18,00" required>
-          <span ng-show = "formCadMovimento.valorCadMovimento.$error.required"
+          <span ng-show = "apareceMensagem && formCadMovimento.valorCadMovimento.$error.required"
           class="form-control alert-danger">
           Valor do movimento obrigatório
           </span>
-          <span ng-show = "formCadMovimento.valorCadMovimento.$error.pattern"
+          <span ng-show = "apareceMensagem && formCadMovimento.valorCadMovimento.$error.pattern"
           class="form-control alert-danger">
           Utilizar o formato 00.00 ou 00,00
           </span>
@@ -33,10 +33,14 @@
 
         <label class="item item-input item-stacked-label">
           <span class="input-label">Data</span required>
-          <input name="dataCadMovimento" id="dataCadMovimento" ng-model="date" type="date" required>
-          <span ng-show = "formCadMovimento.dataCadMovimento.$error.required"
+          <input name="dataCadMovimento" id="dataCadMovimento" ng-model="date" type="date" min="2000-01-01" max="2100-01-01" required>
+          <span ng-show = "apareceMensagem && formCadMovimento.dataCadMovimento.$error.required"
           class="form-control alert-danger">
           Data do movimento obrigatória
+          </span>
+          <span ng-show = "apareceMensagem && !formCadMovimento.dataCadMovimento.$valid"
+          class="form-control alert-danger">
+          O ano precisa ser superior a 2000.
           </span>
         </label>
 
@@ -50,7 +54,7 @@
               <option value="EXPENSE">Despesa</option>
             </select>
           </label>
-          <span ng-show = "formCadMovimento.tipoCadMovimento.$error.required"
+          <span ng-show = "apareceMensagem && formCadMovimento.tipoCadMovimento.$error.required"
           class="form-control alert-danger">
           Tipo do movimento obrigatória
           </span>
