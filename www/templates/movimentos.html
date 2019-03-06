@@ -4,8 +4,9 @@
         <div class="bar bar-header item-input-inset">
             <label class="item-input-wrapper">
                 <i class="icon ion-ios-search placeholder-icon"></i>
-                <input ng-change="filtra(textoPesquisa)" ng-model="textoPesquisa" type="search" placeholder="Buscar Item">
+                <input ng-change="filtraDescricao(textoPesquisa)" ng-model="textoPesquisa" type="search" placeholder="Buscar Item por Descrição">
             </label>
+            <a class="button button-icon icon ion-settings" ng-click="filtroAvancado()"></a>
         </div>
         <ion-list>
             <ion-item ng-repeat="movimento in tabelaExibida">
