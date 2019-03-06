@@ -4,6 +4,7 @@ angular.module('starter').controller('cadastroMovimentosController', function ($
   $scope.date = null
   $scope.data = null
 
+
   $scope.mudaTela = function (caminho) {
     $location.path(caminho);
     }
