@@ -4,7 +4,7 @@ angular.module('starter').controller('cadastroMovimentosController', function ($
  $scope.date = null;
 
   $scope.mudaTela = function (caminho) {
-    $location.path(caminho);
+    $state.go(caminho);
     }
 
   $scope.capturaDadosCadMovimento = {
@@ -28,7 +28,7 @@ angular.module('starter').controller('cadastroMovimentosController', function ($
 
       movimentosService.salvarMovimento(this.capturaDadosCadMovimento);
 
-      $state.go('movimentos');
+      $state.go('app.movimentos');
 
       $ionicPopup.alert({
         title : 'Salvo!',

@@ -3,10 +3,19 @@ angular.module('starter').config(function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise('cadastroMovimentos');
 
     $stateProvider
-    .state('movimentos',{
+    .state('app',{
+      url : '/app',
+      templateUrl : 'templates/menu.html',
+      abstract : true
+    })
+    .state('app.movimentos',{
       url : '/movimentos',
-      templateUrl : 'templates/movimentos.html',
-      controller: 'movimentoController'
+      views : {
+        'menuContent': {
+          templateUrl : 'templates/movimentos.html',
+          controller: 'movimentoController'
+        }
+      },
       })
     .state('cadastroMovimentos',{
       url : '/cadastroMovimentos',
