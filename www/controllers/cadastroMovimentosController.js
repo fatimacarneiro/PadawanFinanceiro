@@ -1,8 +1,7 @@
-angular.module('starter').controller('cadastroMovimentosController', function ($scope, movimentosService,$location){
+angular.module('starter').controller('cadastroMovimentosController', function ($scope, movimentosService,$location, $ionicPopup, $state){
 
   // movimentosService.listar(); //  pi escreveu essa linha para testar a API José e Camila irão precisar
  $scope.date = null;
-
 
   $scope.mudaTela = function (caminho) {
     $location.path(caminho);
@@ -15,16 +14,29 @@ angular.module('starter').controller('cadastroMovimentosController', function ($
     type: null,
   };
 
+
   $scope.salvarMovimento = function(){
-   var dia=this.date.getDate();
-   var mes=this.date.getMonth();
-   var ano=this.date.getFullYear();
-   this.date = dia + '/' + (mes++) + '/' + ano;
+    if ($scope.formCadMovimento.$valid) {
+      var dia=this.date.getDate();
+      var mes=this.date.getMonth();
+      var ano=this.date.getFullYear();
+      this.date = dia + '/' + (mes++) + '/' + ano;
 
-   this.capturaDadosCadMovimento.date = this.date;
-    console.log(this.date);
-   movimentosService.salvarMovimento(this.capturaDadosCadMovimento);
+      this.capturaDadosCadMovimento.date = this.date;
+       console.log(this.date);
+      movimentosService.salvarMovimento(this.capturaDadosCadMovimento);
 
+      console.log("deu certo");
+
+      $state.go('movimentos');
+
+      $ionicPopup.alert({
+        title : 'Salvo!',
+        template : 'Movimento cadastrado com sucesso'
+
+      })
+
+    }
   }
 
 
