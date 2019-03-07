@@ -1,28 +1,29 @@
-<ion-view>
-  <ion-nav-title class="login" >Padawan Financeiro</ion-nav-title>
+<ion-view view-title="Padawan Financeiro">
   <ion-content class="conteudo" ng-controller="loginController">
 
-      <ion-form name="formLogin">
-        <div class="list list-inset">
-          <label class="item item-input">
-            <span class="input-label">Email</span>
-            <input type="text" name="emailLogin" ng-model="emailLogin" placeholder="usuario@email.com.br" ng-pattern="/^[A-z0-9][A-z0-9\.]{5,29}@[A-z]*(.com.br|.com)$/" required>
-          </label>
-          <span ng-show="apareceMensagem && formLogin.emailLogin.$error.required"  class="form-control alert-danger">
-            Email incorreto!
-          </span>
+    <form name="formLogin">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="text" name="emailLogin" ng-model="capturaDadosUsuario.username" placeholder="usuario@email.com.br"
+            ng-pattern="/^[A-z0-9][A-z0-9\.]{5,29}@[A-z]*(.com.br|.com)$/" required>
+        </label>
+        <span ng-show="apareceMensagem && formLogin.emailLogin.$error.required" class="form-control alert-danger">
+          Email incorreto!
+        </span>
 
-          <label class="item item-input">
-            <span class="input-label">Senha</span>
-            <input type="password" name="senhaLogin" placeholder="Insira sua senha aqui" ng-min="8" ng-max="12" required>
-          </label>
-          <span ng-show="apareceMensagem && formLogin.senhaLogin.$valid"  class="form-control alert-danger">
-              Senha incorreta!
-          </span>
+        <label class="item item-input">
+          <span class="input-label">Senha</span>
+          <input type="password" name="senhaLogin" ng-model="capturaDadosUsuario.password" placeholder="Insira sua senha aqui"
+            ng-pattern="/^[^\W_]{8,12}$/" required>
+        </label>
+        <span ng-show="apareceMensagem && formLogin.senhaLogin.$error.required" class="form-control alert-danger">
+          A senha deve ter 8 a 12 digitos.
+        </span>
 
-          <button class="button button-block button-positive" type="submit" >Entrar</button>
-          <button class="button button-block button-positive" type="submit" >Novo Usuário</button>
-        </div>
-      </ion-form>
+        <button class="button button-block button-positive" type="submit" ng-click="validar()">Entrar</button>
+        <button class="button button-block button-positive" type="submit" ng-click="salvar()">Novo Usuário</button>
+      </div>
+    </form>
   </ion-content>
 </ion-view>

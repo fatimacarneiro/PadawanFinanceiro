@@ -1,5 +1,5 @@
-angular.module('starter').controller('tabelaController', function($scope, $location, consultaMovimentosService, $ionicPopup){
-    
+angular.module('starter').controller('tabelaController', function($scope, $state, consultaMovimentosService, $ionicPopup){
+
     $scope.filtraDescricao = function(event){
 
         this.tabelaExibida = this.listaMovimento.filter((itemTabela) => itemTabela.description.match(event, 'i'));
@@ -9,7 +9,7 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
         consultaMovimentosService.listarMovimentos().then(function successCallback(dados){
             $scope.listaMovimento = dados;
             $scope.tabelaExibida = $scope.listaMovimento;
-            
+
             for(let i=0; i < $scope.tabelaExibida.length;i++){
                 if($scope.tabelaExibida[i].type === "EXPENSE"){
                     $scope.tabelaExibida[i].type = "Despesa"
@@ -21,9 +21,9 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
     }
 
     init();
-    
-    $scope.mudaTelaCadastro = function (){
-        $location.path('/cadastroMovimentos');
+
+    $scope.mudaTelaCadastro = function (caminho){
+        $state.go('app.cadastroMovimentos');
     }
 
     $scope.excluir = function(movimentoSelecionado) {
@@ -31,16 +31,16 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
         title: 'Excluir Movimento',
         template: 'Tem certeza que deseja excluir esse movimento?'
         });
-    
+
         confirmPopup.then(function(res) {
         if(res) {
             consultaMovimentosService.apagar(movimentoSelecionado.id)
-        } 
+        }
         });
     }
 
     $scope.filtroAvancado = function(){
-        
+
         $scope.movimento = {}
 
         $ionicPopup.show({
@@ -59,7 +59,7 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
                         let mes=$scope.movimento.date.getMonth();
                         let ano=$scope.movimento.date.getFullYear();
                         $scope.data = dia + '/' + (mes++) + '/' + ano;
-                        
+
                         console.log($scope.movimento.value)
                         console.log($scope.tabelaExibida = $scope.listaMovimento.filter((itemTabela) => itemTabela.date.match($scope.movimento.date, 'g')));
                     }

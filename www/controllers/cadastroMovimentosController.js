@@ -1,12 +1,12 @@
-angular.module('starter').controller('cadastroMovimentosController', function ($scope, movimentosService,$location, $ionicPopup, $state){
+angular.module('starter').controller('cadastroMovimentosController', function ($scope, cadastroMovimentosService, $state, $ionicPopup) {
 
- console.log(movimentosService.listar()); //  pi escreveu essa linha para testar a API José e Camila irão precisar
- $scope.date = null;
+  $scope.date = null
+  $scope.data = null
 
 
   $scope.mudaTela = function (caminho) {
     $state.go(caminho);
-    }
+  }
 
   $scope.capturaDadosCadMovimento = {
     description: null,
@@ -17,21 +17,24 @@ angular.module('starter').controller('cadastroMovimentosController', function ($
 
   $scope.apareceMensagem = false;
 
-  $scope.salvarMovimento = function(){
+  $scope.salvarMovimento = function () {
+
     if ($scope.formCadMovimento.$valid) {
-      var dia=this.date.getDate();
-      var mes=this.date.getMonth();
-      var ano=this.date.getFullYear();
+      var dia = this.date.getDate();
+      var mes = this.date.getMonth();
+      var ano = this.date.getFullYear();
       let date = dia + '/' + (mes++) + '/' + ano;
       this.capturaDadosCadMovimento.date = date;
+
+      //this.capturaDadosCadMovimento.value = this.capturaDadosCadMovimento.value.replace(',', '.');
 
       cadastroMovimentosService.salvarMovimento(this.capturaDadosCadMovimento);
 
       $state.go('app.movimentos');
 
       $ionicPopup.alert({
-        title : 'Salvo!',
-        template : 'Movimento cadastrado com sucesso'
+        title: 'Salvo!',
+        template: 'Movimento cadastrado com sucesso'
 
       })
 
@@ -39,13 +42,10 @@ angular.module('starter').controller('cadastroMovimentosController', function ($
     } else {
       $scope.apareceMensagem = true;
       $ionicPopup.alert({
-        title : 'Erro!',
-        template : 'Informações inválidas. Preencher formulário corretamente.'
+        title: 'Erro!',
+        template: 'Informações inválidas. Preencher formulário corretamente.'
 
       })
     }
-
   }
-
-
 })

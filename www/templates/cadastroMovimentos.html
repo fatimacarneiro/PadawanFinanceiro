@@ -1,76 +1,71 @@
-<ion-view>
-  <ion-nav-title>Cadastro de Receitas/Despesas</ion-nav-title>
-  <ion-content class="conteudo" ng-controller="cadastroMovimentosController">
+<ion-view view-title="Cadastro de Receitas/Despesas">
+  <ion-content class="conteudo">
 
     <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
-    <ion-form name="formCadMovimento">
+    <form name="formCadMovimento">
       <div class="list">
         <label class="item item-input item-stacked-label">
           <span class="input-label">Descrição do movimento</span>
-          <input name="descricaoCadMovimento" id="descricaoCadMovimento" ng-model="capturaDadosCadMovimento.description" type="text" placeholder="Ex: compra caderno" ng-maxlength="30" required>
-          <span ng-show = "apareceMensagem && formCadMovimento.descricaoCadMovimento.$error.required"
-          class="form-control alert-danger">
-          Descrição de Movimento obrigatório.
+          <input name="descricaoCadMovimento" id="descricaoCadMovimento" ng-model="capturaDadosCadMovimento.description"
+            type="text" placeholder="Ex: compra caderno" ng-maxlength="30" required>
+          <span ng-show="apareceMensagem && formCadMovimento.descricaoCadMovimento.$error.required" class="form-control alert-danger">
+            Descrição de Movimento obrigatório.
           </span>
-          <span ng-show = "formCadMovimento.descricaoCadMovimento.$error.maxlength"
-          class="form-control alert-danger">
-          O máximo de caracteres permitidos é 30.
+          <span ng-show="formCadMovimento.descricaoCadMovimento.$error.maxlength" class="form-control alert-danger">
+            O máximo de caracteres permitidos é 30.
           </span>
         </label>
 
         <label class="item item-input item-stacked-label">
           <span class="input-label">Valor</span>
-          <input name="valorCadMovimento" id="valorCadMovimento" ng-model="capturaDadosCadMovimento.value" type="number" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" placeholder="Ex: 18,00" ng-min="0.01" required>
-          <span ng-show = "apareceMensagem && formCadMovimento.valorCadMovimento.$error.required"
-          class="form-control alert-danger">
-          Valor do movimento obrigatório
+          <input name="valorCadMovimento" id="valorCadMovimento" ng-model="capturaDadosCadMovimento.value" type="number"
+            ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" placeholder="Ex: 18,00" ng-min="0.01" required>
+          <span ng-show="apareceMensagem && formCadMovimento.valorCadMovimento.$error.required" class="form-control alert-danger">
+            Valor do movimento obrigatório
           </span>
-          <span ng-show = "apareceMensagem && formCadMovimento.valorCadMovimento.$error.pattern"
-          class="form-control alert-danger">
-          Utilizar o formato 00.00 ou 00,00
+          <span ng-show="apareceMensagem && formCadMovimento.valorCadMovimento.$error.pattern" class="form-control alert-danger">
+            Utilizar o formato 00.00 ou 00,00
           </span>
-          <span ng-show = "apareceMensagem && !formCadMovimento.valorCadMovimento.$valid"
-          class="form-control alert-danger">
-          O valor precisa ser superior a 0.
+          <span ng-show="apareceMensagem && !formCadMovimento.valorCadMovimento.$valid" class="form-control alert-danger">
+            O valor precisa ser superior a 0.
           </span>
         </label>
 
         <label class="item item-input item-stacked-label">
           <span class="input-label">Data</span required>
-          <input name="dataCadMovimento" id="dataCadMovimento" ng-model="date" type="date" ng-min="2000-01-01" ng-max="2100-01-01" required>
-          <span ng-show = "apareceMensagem && formCadMovimento.dataCadMovimento.$error.required"
-          class="form-control alert-danger">
-          Data do movimento obrigatória
+          <input name="dataCadMovimento" id="dataCadMovimento" ng-model="date" type="date" ng-min="2000-01-01" ng-max="2100-01-01"
+            required>
+          <span ng-show="apareceMensagem && formCadMovimento.dataCadMovimento.$error.required" class="form-control alert-danger">
+            Data do movimento obrigatória
           </span>
-          <span ng-show = "apareceMensagem && !formCadMovimento.dataCadMovimento.$valid"
-          class="form-control alert-danger">
-          O ano precisa ser superior a 2000.
+          <span ng-show="apareceMensagem && !formCadMovimento.dataCadMovimento.$valid" class="form-control alert-danger">
+            O ano precisa ser superior a 2000.
           </span>
         </label>
 
         <label class="item item-input item-select">
-            <div class="input-label">
-              Tipo de Movimento
-            </div>
-            <select name="tipoCadMovimento" id="tipoCadMovimento" ng-model="capturaDadosCadMovimento.type" ng-pattern="/(?!.*(Receita ou Despesa).*)/" required>
-              <option disabled selected>Receita ou Despesa</option>
-              <option value="REVENUE">Receita</option>
-              <option value="EXPENSE">Despesa</option>
-            </select>
-          </label>
-          <span ng-show = "apareceMensagem && formCadMovimento.tipoCadMovimento.$error.required"
-          class="form-control alert-danger">
-          Tipo do movimento obrigatória
-          </span>
+          <div class="input-label">
+            Tipo de Movimento
           </div>
-
-          <button id="botaoSalvar" name="botaoSalvar" ng-click="salvarMovimento()" class="button button-block button-positive" >
-              Registrar Movimento
-          </button>
-    </ion-form>
-      <div>
-        <button ng-click="mudaTela('app.movimentos')" class="button button-block button-assertive">Cancelar</button>
+          <select name="tipoCadMovimento" id="tipoCadMovimento" ng-model="capturaDadosCadMovimento.type" ng-pattern="/(?!.*(Receita ou Despesa).*)/"
+            required>
+            <option disabled selected>Receita ou Despesa</option>
+            <option value="REVENUE">Receita</option>
+            <option value="EXPENSE">Despesa</option>
+          </select>
+        </label>
+        <span ng-show="apareceMensagem && formCadMovimento.tipoCadMovimento.$error.required" class="form-control alert-danger">
+          Tipo do movimento obrigatória
+        </span>
       </div>
+
+      <button id="botaoSalvar" name="botaoSalvar" ng-click="salvarMovimento()" class="button button-block button-positive">
+        Registrar Movimento
+      </button>
+    </form>
+    <div>
+      <button ng-click="mudaTela('app.movimentos')" class="button button-block button-assertive">Cancelar</button>
+    </div>
 
   </ion-content>
 
