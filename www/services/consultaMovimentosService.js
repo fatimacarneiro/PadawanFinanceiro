@@ -24,7 +24,6 @@ angular.module('starter').service('consultaMovimentosService', function ($http) 
     var raiz = 'http://localhost:8100/';
 
     return $http.delete(raiz + urlRequisicao + id).then(function successCallback(responseData) {
-      return window.location.reload();
     }).catch(function errorCallback() {
       alert('Não foi possível conectar ao servidor, por favor verifique sua conexão com a internet');
     })

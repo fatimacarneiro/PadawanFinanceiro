@@ -1,6 +1,10 @@
 angular.module('starter').controller('loginController', function ($scope, cadastroUsuarioService, $state, $ionicPopup, $http) {
   $scope.apareceMensagem = false;
 
+  function resetUsuario() {
+    $http.defaults.headers.common.Authorization = 'Bearer';
+  }
+
   $scope.capturaDadosUsuario = {
     username: null,
     password: null,
@@ -18,8 +22,8 @@ angular.module('starter').controller('loginController', function ($scope, cadast
 
     cadastroUsuarioService.salvarUsuario(this.capturaDadosUsuario).then(function (response) {
 
-    $scope.apareceMensagem = false;
-    $state.go('app.movimentos');
+      $scope.apareceMensagem = false;
+      $state.go('app.movimentos');
     }).catch(function errorCallback() {
       $ionicPopup.alert({
         title: 'Erro!',
@@ -27,7 +31,7 @@ angular.module('starter').controller('loginController', function ($scope, cadast
       })
     })
 
-}
+  }
 
   $scope.validar = function () {
     if (!$scope.formLogin.$valid) {
@@ -41,29 +45,34 @@ angular.module('starter').controller('loginController', function ($scope, cadast
       return;
     }
 
+    function setToken(token) {
+      $http.defaults.headers.common['Authorization'] = token;
+    }
+
     cadastroUsuarioService.validaUsuario(this.capturaDadosUsuario)
       .then(function (response) {
-      $scope.apareceMensagem = false;
-      $http.defaults.headers.common.Authorization = response.headers('authorization');
+        $scope.apareceMensagem = false;
 
+        setToken(response.headers('authorization'));
 
+        $state.go('app.movimentos');
+        console.log(response);
+        $ionicPopup.alert({
+          title: 'Bem vindo!',
+          template: 'Agora você pode controlar as suas finanças.'
+        })
 
-      $state.go('app.movimentos');
-      console.log(response);
-      $ionicPopup.alert({
-        title: 'Bem vindo!',
-        template: 'Agora você pode controlar as suas finanças.'
+      }).catch(function errorCallback() {
+        $ionicPopup.alert({
+          title: 'Erro!',
+          template: 'Login ou senha inválido.'
+        })
       })
-
-    }).catch(function errorCallback() {
-      $ionicPopup.alert({
-        title: 'Erro!',
-        template: 'Login ou senha inválido.'
-      })
-    })
   }
 
-   $scope.logout = function(){
-    $http.defaults.headers.common.Authorization = '';
-   }
+  $scope.logout = function () {
+    resetUsuario();
+  }
+
+  resetUsuario();
 })
