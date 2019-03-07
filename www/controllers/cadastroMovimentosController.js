@@ -1,10 +1,11 @@
-angular.module('starter').controller('cadastroMovimentosController', function ($scope, cadastroMovimentosService,$location){
+angular.module('starter').controller('cadastroMovimentosController', function ($scope, cadastroMovimentosService,$state, $ionicPopup){
 
   $scope.date = null
   $scope.data = null
 
+
   $scope.mudaTela = function (caminho) {
-    $location.path(caminho);
+    $state.go(caminho);
     }
 
   $scope.capturaDadosCadMovimento = {
@@ -14,14 +15,38 @@ angular.module('starter').controller('cadastroMovimentosController', function ($
     type: null,
   };
 
-  $scope.salvarMovimento = function(){
-   var dia=this.data.getDate();
-   var mes=this.data.getMonth();
-   var ano=this.data.getFullYear();
-   this.date = dia + '/' + (mes++) + '/' + ano;
+  $scope.apareceMensagem = false;
 
-   this.capturaDadosCadMovimento.date = this.date;
-    cadastroMovimentosService.salvarMovimento(this.capturaDadosCadMovimento);
+  $scope.salvarMovimento = function(){
+
+    if ($scope.formCadMovimento.$valid) {
+      var dia=this.date.getDate();
+      var mes=this.date.getMonth();
+      var ano=this.date.getFullYear();
+      let date = dia + '/' + (mes++) + '/' + ano;
+      this.capturaDadosCadMovimento.date = date;
+
+      //this.capturaDadosCadMovimento.value = this.capturaDadosCadMovimento.value.replace(',', '.');
+
+      cadastroMovimentosService.salvarMovimento(this.capturaDadosCadMovimento);
+
+      $state.go('app.movimentos');
+
+      $ionicPopup.alert({
+        title : 'Salvo!',
+        template : 'Movimento cadastrado com sucesso'
+
+      })
+
+
+    } else {
+      $scope.apareceMensagem = true;
+      $ionicPopup.alert({
+        title : 'Erro!',
+        template : 'Informações inválidas. Preencher formulário corretamente.'
+
+      })
+    }
 
   }
 
