@@ -1,16 +1,24 @@
 angular.module('starter').controller('tabelaController', function($scope, $location, consultaMovimentosService, $ionicPopup){
     
     $scope.movimento = {}
+    $scope.saldoAtual = null;
+    $scope.saldoReceita = null;
+    $scope.saldoDespesa = null;
+    
 
     $scope.filtraDescricao = function(event){
 
         $scope.tabelaExibida = $scope.listaMovimento.filter((item) => item.description.match(event, 'i'));
     }
 
+   
+    
     function init() {
         consultaMovimentosService.listarMovimentos().then(function successCallback(dados){
             $scope.listaMovimento = dados;
             $scope.tabelaExibida = $scope.listaMovimento;
+
+            calculaSaldoAtual($scope.listaMovimento);
             
             for(let i=0; i < $scope.tabelaExibida.length;i++){
                 if($scope.tabelaExibida[i].type === "EXPENSE"){
@@ -20,6 +28,18 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
                 }
             }
         });
+        
+        function calculaSaldoAtual (lista){
+            for(let i = 0; i < lista.length; i++){
+                if(lista[i].type === 'REVENUE'){    
+                    $scope.saldoReceita = $scope.saldoReceita + lista[i].value;
+                }
+                else {
+                    $scope.saldoDespesa = $scope.saldoDespesa + lista[i].value;
+                }
+            }
+            $scope.saldoAtual = $scope.saldoReceita - $scope.saldoDespesa;
+        } 
     }
 
     init();
