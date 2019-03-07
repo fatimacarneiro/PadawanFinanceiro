@@ -3,6 +3,7 @@ angular.module('starter').controller('cadastroMovimentosController', function ($
  console.log(movimentosService.listar()); //  pi escreveu essa linha para testar a API José e Camila irão precisar
  $scope.date = null;
 
+
   $scope.mudaTela = function (caminho) {
     $state.go(caminho);
     }
@@ -24,9 +25,7 @@ angular.module('starter').controller('cadastroMovimentosController', function ($
       let date = dia + '/' + (mes++) + '/' + ano;
       this.capturaDadosCadMovimento.date = date;
 
-      //this.capturaDadosCadMovimento.value = this.capturaDadosCadMovimento.value.replace(',', '.');
-
-      movimentosService.salvarMovimento(this.capturaDadosCadMovimento);
+      cadastroMovimentosService.salvarMovimento(this.capturaDadosCadMovimento);
 
       $state.go('app.movimentos');
 

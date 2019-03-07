@@ -13,7 +13,7 @@ angular.module('starter').config(function($stateProvider, $urlRouterProvider){
       views : {
         'menuContent': {
           templateUrl : 'templates/movimentos.html',
-          controller: 'movimentoController'
+          controller: 'tabelaController'
         }
       }
     })
@@ -26,5 +26,5 @@ angular.module('starter').config(function($stateProvider, $urlRouterProvider){
       url : '/cadastroMovimentos',
       templateUrl : 'templates/cadastroMovimentos.html',
       controller: 'cadastroMovimentosController'
-     });
+     })
   })
