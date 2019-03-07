@@ -1,21 +1,28 @@
 <ion-view>
-  <ion-nav-title>Entrar</ion-nav-title>
-  <ion-content>
+  <ion-nav-title class="login" >Padawan Financeiro</ion-nav-title>
+  <ion-content class="conteudo" ng-controller="loginController">
 
-      <form>
+      <ion-form name="formLogin">
         <div class="list list-inset">
           <label class="item item-input">
             <span class="input-label">Email</span>
-            <input type="text" required>
+            <input type="text" name="emailLogin" ng-model="emailLogin" placeholder="usuario@email.com.br" ng-pattern="/^[A-z0-9][A-z0-9\.]{5,29}@[A-z]*(.com.br|.com)$/" required>
           </label>
+          <span ng-show="apareceMensagem && formLogin.emailLogin.$error.required"  class="form-control alert-danger">
+            Email incorreto!
+          </span>
+
           <label class="item item-input">
             <span class="input-label">Senha</span>
-            <input type="password" required>
+            <input type="password" name="senhaLogin" placeholder="Insira sua senha aqui" ng-min="8" ng-max="12" required>
           </label>
+          <span ng-show="apareceMensagem && formLogin.senhaLogin.$valid"  class="form-control alert-danger">
+              Senha incorreta!
+          </span>
 
           <button class="button button-block button-positive" type="submit" >Entrar</button>
           <button class="button button-block button-positive" type="submit" >Novo Usuário</button>
         </div>
-      </form>
+      </ion-form>
   </ion-content>
 </ion-view>

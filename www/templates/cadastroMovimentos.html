@@ -3,7 +3,7 @@
   <ion-content class="conteudo" ng-controller="cadastroMovimentosController">
 
     <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
-    <form name="formCadMovimento">
+    <ion-form name="formCadMovimento">
       <div class="list">
         <label class="item item-input item-stacked-label">
           <span class="input-label">Descrição do movimento</span>
@@ -67,7 +67,7 @@
           <button id="botaoSalvar" name="botaoSalvar" ng-click="salvarMovimento()" class="button button-block button-positive" >
               Registrar Movimento
           </button>
-    </form>
+    </ion-form>
       <div>
         <button ng-click="mudaTela('app.movimentos')" class="button button-block button-assertive">Cancelar</button>
       </div>
