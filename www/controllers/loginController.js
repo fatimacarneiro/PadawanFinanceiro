@@ -65,6 +65,5 @@ angular.module('starter').controller('loginController', function ($scope, cadast
 
    $scope.logout = function(){
     $http.defaults.headers.common.Authorization = '';
-
    }
 })

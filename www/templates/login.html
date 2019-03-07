@@ -1,12 +1,12 @@
-<ion-view view-title="Padawan Financeiro">
+<ion-view>
   <ion-content class="conteudo" ng-controller="loginController">
-
+   <h3>Padawan Financeiro</h3>
     <form name="formLogin">
       <div class="list list-inset">
         <label class="item item-input">
           <span class="input-label">Email</span>
           <input type="text" name="emailLogin" ng-model="capturaDadosUsuario.username" placeholder="usuario@email.com.br"
-            ng-pattern="/^[A-z0-9][A-z0-9\.]{5,29}@[A-z]*(.com.br|.com)$/" required>
+            ng-pattern="/(^[A-z0-9\.]{1,29}@[A-z]*(.com.br|.com)$)|(admin)/" required>
         </label>
         <span ng-show="apareceMensagem && formLogin.emailLogin.$error.required" class="form-control alert-danger">
           Email incorreto!
