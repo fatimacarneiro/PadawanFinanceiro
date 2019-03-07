@@ -10,7 +10,9 @@ angular.module('starter')
 
         var urlRequisicao = 'api/transactions';
         return $http.post(url + urlRequisicao, movimento).then(function(response){
-          return setTimeout(function() {window.location.reload()},1000);
+          return setTimeout(function() {
+            window.location.reload()
+          },500);
         }).catch(function errorCallback (){
           alert('Não foi possível conectar ao servidor, por favor verifique sua conexão com a internet');
       })

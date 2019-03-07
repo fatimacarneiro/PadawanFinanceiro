@@ -1,14 +1,14 @@
-<label class="item item-input">Data:    
-    <input type="date" ng-model="movimento.date">
+<label class="item item-input">
+    <input type="text" ng-change="filtra()" ng-model="movimento.date" placeholder="Data">
 </label>
 
-<label class="item item-input">Valor:   
-    <input type="number" ng-model="movimento.value">
+<label class="item item-input">
+    <input type="number" ng-change="filtra()" ng-model="movimento.value" placeholder="Valor">
 </label>
 
-<label class="item item-select">Tipo:   
-    <select ng-model="movimento.type">
-        <option value="REVENUE">Receita</option>
-        <option value="EXPENSE">Despesa</option>
+<label class="item item-select">Tipo:  
+    <select ng-change="filtra()" ng-model="movimento.type">
+        <option value="Receita">Receita</option>
+        <option value="Despesa">Despesa</option>
     </select>
 </label>

@@ -6,8 +6,13 @@
                 <i class="icon ion-ios-search placeholder-icon"></i>
                 <input ng-change="filtraDescricao(textoPesquisa)" ng-model="textoPesquisa" type="search" placeholder="Buscar Item por Descrição">
             </label>
+            
             <a class="button button-icon icon ion-settings" ng-click="filtroAvancado()"></a>
         </div>
+        <label class="item item-input">
+                <span class="input-label">Saldo Atual: R$</span>
+                <span>1000.00</span>
+            </label>
         <ion-list>
             <ion-item ng-repeat="movimento in tabelaExibida">
                 <div class="card">

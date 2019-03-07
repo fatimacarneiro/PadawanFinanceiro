@@ -1,8 +1,10 @@
 angular.module('starter').controller('tabelaController', function($scope, $location, consultaMovimentosService, $ionicPopup){
     
+    $scope.movimento = {}
+
     $scope.filtraDescricao = function(event){
 
-        this.tabelaExibida = this.listaMovimento.filter((itemTabela) => itemTabela.description.match(event, 'i'));
+        $scope.tabelaExibida = $scope.listaMovimento.filter((item) => item.description.match(event, 'i'));
     }
 
     function init() {
@@ -40,8 +42,14 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
     }
 
     $scope.filtroAvancado = function(){
+
         
-        $scope.movimento = {}
+        $scope.filtra = function (){
+            $scope.tabelaExibida = $scope.listaMovimento
+                .filter(filtraValor)
+                .filter(filtraData)
+                .filter(filtraTipo);
+        }
 
         $ionicPopup.show({
             templateUrl: 'templates/filtroAvancado.html',
@@ -49,29 +57,17 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
             subTitle: 'Selecione os dados para filtrar',
             scope: $scope,
             buttons: [
-            { text: 'Cancelar' },
-            {
-                text: '<b>Filtrar</b>',
-                type: 'button-positive',
-                onTap: function() {
-                    if ($scope.movimento.date) {
-                        let dia=$scope.movimento.date.getDate();
-                        let mes=$scope.movimento.date.getMonth();
-                        let ano=$scope.movimento.date.getFullYear();
-                        $scope.data = dia + '/' + (mes++) + '/' + ano;
-                        
-                        console.log($scope.movimento.value)
-                        console.log($scope.tabelaExibida = $scope.listaMovimento.filter((itemTabela) => itemTabela.date.match($scope.movimento.date, 'g')));
-                    }
-                    if ($scope.movimento.value){
-                        console.log($scope.tabelaExibida = $scope.listaMovimento.filter((itemTabela) => itemTabela.value.match($scope.movimento.value, 'g')));
-                    }
-                    if ($scope.movimento.type){
-                        console.log($scope.tabelaExibida = $scope.listaMovimento.filter((itemTabela) => itemTabela.type.match($scope.movimento.type, 'g')));
-                    }
-                }
+           {
+                text: '<b>Fechar</b>',
+                type: 'button-positive'
             }
             ]
         })
     }
-})
+    
+    let filtraData = item => !$scope.movimento.date || item.date.match($scope.movimento.date, 'i')
+        
+    let filtraValor = item => !$scope.movimento.value || item.value === $scope.movimento.value
+    
+    let filtraTipo = item => !$scope.movimento.type || item.type === $scope.movimento.type
+})  
