@@ -1,23 +1,25 @@
-angular.module('starter')
-  .service('cadastroMovimentosService', function ($http, $rootScope) {
 
-    var url = 'http://localhost:8100/'
+(function () {
+  'use strict';
+  angular.module('starter')
+    .service('cadastroMovimentosService', function ($http) {
 
-    $http.defaults.headers.common.Authorization = $rootScope.token;
 
-    return {
-      salvarMovimento: function (movimento) {
+      var url = 'http://localhost:8100/'
 
-        var urlRequisicao = 'api/transactions';
 
-        return $http.post(url + urlRequisicao, movimento).then(function(){
-          return setTimeout(function() {
-            window.location.reload()
-          },500);
-        }).catch(function errorCallback (){
+      return {
+        salvarMovimento: function (movimento) {
 
-          alert('Não foi possível conectar ao servidor, por favor verifique sua conexão com a internet');
-        })
+          var urlRequisicao = 'api/transactions';
+
+          return $http.post(url + urlRequisicao, movimento).then(function (response) {
+            return setTimeout(function () {}, 1000);
+          }).catch(function errorCallback() {
+            alert('Não foi possível conectar ao servidor, por favor verifique sua conexão com a internet');
+          })
+        }
+
       }
-    }
-  });
+    });
+})();

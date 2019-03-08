@@ -1,70 +1,75 @@
-angular.module('starter').controller('tabelaController', function($scope, $state, consultaMovimentosService, $ionicPopup){
-    
-    $scope.movimento = {}
-    $scope.saldoAtual = null;
-    $scope.saldoReceita = null;
-    $scope.saldoDespesa = null;
-    
+(function () {
+  'use strict';
 
-    $scope.filtraDescricao = function(event){
+  angular.module('starter').controller('tabelaController', function ($state, consultaMovimentosService, $ionicPopup) {
 
-        $scope.tabelaExibida = $scope.listaMovimento.filter((item) => item.description.match(event, 'i'));
+    var vm = this;
+    vm.movimento = {}
+    vm.saldoAtual = null;
+    vm.saldoReceita = null;
+    vm.saldoDespesa = null;
+
+    vm.filtraDescricao = function (event) {
+      vm.tabelaExibida = vm.listaMovimento.filter((itemTabela) => itemTabela.description.match(event, 'i'));
     }
 
-   
-    
-    function init() {
-        consultaMovimentosService.listarMovimentos().then(function successCallback(dados){
-            $scope.listaMovimento = dados;
-            $scope.tabelaExibida = $scope.listaMovimento;
+    let atualizarMovimentos = res => {
+      vm.listaMovimento = res.data
 
-            calculaSaldoAtual($scope.listaMovimento);
-            
-            for(let i=0; i < $scope.tabelaExibida.length;i++){
-                if($scope.tabelaExibida[i].type === "EXPENSE"){
-                    $scope.tabelaExibida[i].type = "Despesa"
-                } else if ($scope.tabelaExibida[i].type === "REVENUE"){
-                    $scope.tabelaExibida[i].type = "Receita"
-                }
+      function calculaSaldoAtual (lista){
+        for(let i = 0; i < lista.length; i++){
+            if(lista[i].type === 'REVENUE'){    
+                $vm.saldoReceita = $vm.saldoReceita + lista[i].value;
             }
-        });
-        
-        function calculaSaldoAtual (lista){
-            for(let i = 0; i < lista.length; i++){
-                if(lista[i].type === 'REVENUE'){    
-                    $scope.saldoReceita = $scope.saldoReceita + lista[i].value;
-                }
-                else {
-                    $scope.saldoDespesa = $scope.saldoDespesa + lista[i].value;
-                }
+            else {
+                $vm.saldoDespesa = $vm.saldoDespesa + lista[i].value;
             }
-            $scope.saldoAtual = $scope.saldoReceita - $scope.saldoDespesa;
-        } 
+        }
+        $vm.saldoAtual = $vm.saldoReceita - $vm.saldoDespesa;
+      }
+      
+      vm.tabelaExibida = vm.listaMovimento;
+
+      for (let i = 0; i < vm.tabelaExibida.length; i++) {
+        if (vm.tabelaExibida[i].type === "EXPENSE") {
+          vm.tabelaExibida[i].type = "Despesa"
+        } else if (vm.tabelaExibida[i].type === "REVENUE") {
+          vm.tabelaExibida[i].type = "Receita"
+        }
+      }
+      
+      calculaSaldoAtual($vm.listaMovimento);
+    }
+
+    function init() {
+      consultaMovimentosService.listarMovimentos().then(atualizarMovimentos);
     }
 
     init();
 
-    $scope.mudaTelaCadastro = function (){
+    $vm.mudaTelaCadastro = function (){
         $state.go('app.cadastroMovimentos');
     }
 
-    $scope.excluir = function(movimentoSelecionado) {
-    var confirmPopup = $ionicPopup.confirm({
+    vm.excluir = function (movimentoSelecionado) {
+      var confirmPopup = $ionicPopup.confirm({
         title: 'Excluir Movimento',
         template: 'Tem certeza que deseja excluir esse movimento?'
-        });
+      });
 
-        confirmPopup.then(function(res) {
-        if(res) {
-            consultaMovimentosService.apagar(movimentoSelecionado.id)
+      confirmPopup.then(function (res) {
+        if (res) {
+          consultaMovimentosService.apagar(movimentoSelecionado.id)
+            .then(consultaMovimentosService.listarMovimentos())
+            .then(atualizarMovimentos);
         }
-        });
+      });
     }
 
-    $scope.filtroAvancado = function(){
+    $vm.filtroAvancado = function(){
         
-        $scope.filtra = function (){
-            $scope.tabelaExibida = $scope.listaMovimento
+        $vm.filtra = function (){
+            $vm.tabelaExibida = $vm.listaMovimento
                 .filter(filtraValor)
                 .filter(filtraData)
                 .filter(filtraTipo);
@@ -74,21 +79,21 @@ angular.module('starter').controller('tabelaController', function($scope, $state
             templateUrl: 'templates/filtroAvancado.html',
             title: 'Filtro Avançado',
             subTitle: 'Selecione os dados para filtrar',
-            scope: $scope,
+            vm: $vm,
             buttons: [
-
-           {
-                text: '<b>Fechar</b>',
-                type: 'button-positive'    
+            {
+              text: '<b>Fechar</b>',
+              type: 'button-positive'    
             }
             ]
         })
     }
     
-    let filtraData = item => !$scope.movimento.date || item.date.match($scope.movimento.date, 'i')
+    let filtraData = item => !$vm.movimento.date || item.date.match($vm.movimento.date, 'i')
         
-    let filtraValor = item => !$scope.movimento.value || item.value === $scope.movimento.value
+    let filtraValor = item => !$vm.movimento.value || item.value === $vm.movimento.value
     
-    let filtraTipo = item => !$scope.movimento.type || item.type === $scope.movimento.type
-}) 
+    let filtraTipo = item => !$vm.movimento.type || item.type === $vm.movimento.type
+})
+})();
 
