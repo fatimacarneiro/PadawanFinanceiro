@@ -1,4 +1,4 @@
-angular.module('starter').controller('tabelaController', function($scope, $location, consultaMovimentosService, $ionicPopup){
+angular.module('starter').controller('tabelaController', function($scope, $state, consultaMovimentosService, $ionicPopup){
     
     $scope.movimento = {}
     $scope.saldoAtual = null;
@@ -43,9 +43,9 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
     }
 
     init();
-    
+
     $scope.mudaTelaCadastro = function (){
-        $location.path('/cadastroMovimentos');
+        $state.go('app.cadastroMovimentos');
     }
 
     $scope.excluir = function(movimentoSelecionado) {
@@ -53,16 +53,15 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
         title: 'Excluir Movimento',
         template: 'Tem certeza que deseja excluir esse movimento?'
         });
-    
+
         confirmPopup.then(function(res) {
         if(res) {
             consultaMovimentosService.apagar(movimentoSelecionado.id)
-        } 
+        }
         });
     }
 
     $scope.filtroAvancado = function(){
-
         
         $scope.filtra = function (){
             $scope.tabelaExibida = $scope.listaMovimento
@@ -77,9 +76,10 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
             subTitle: 'Selecione os dados para filtrar',
             scope: $scope,
             buttons: [
+
            {
                 text: '<b>Fechar</b>',
-                type: 'button-positive'
+                type: 'button-positive'    
             }
             ]
         })
@@ -90,4 +90,5 @@ angular.module('starter').controller('tabelaController', function($scope, $locat
     let filtraValor = item => !$scope.movimento.value || item.value === $scope.movimento.value
     
     let filtraTipo = item => !$scope.movimento.type || item.type === $scope.movimento.type
-})  
+}) 
+

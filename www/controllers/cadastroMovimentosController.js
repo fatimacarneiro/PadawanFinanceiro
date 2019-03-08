@@ -1,54 +1,55 @@
-angular.module('starter').controller('cadastroMovimentosController', function ($scope, cadastroMovimentosService,$state, $ionicPopup){
+angular.module('starter').controller('cadastroMovimentosController', function (cadastroMovimentosService, $state, $ionicPopup) {
+  var vm = this;
 
-  $scope.date = null
-  $scope.data = null
+  vm.date = null
+  vm.data = null
 
 
-  $scope.mudaTela = function (caminho) {
+  vm.mudaTela = function (caminho) {
     $state.go(caminho);
-    }
+  }
 
-  $scope.capturaDadosCadMovimento = {
+  vm.capturaDadosCadMovimento = {
     description: null,
     value: null,
     date: null,
     type: null,
   };
 
-  $scope.apareceMensagem = false;
+  vm.apareceMensagem = false;
 
-  $scope.salvarMovimento = function(){
+  vm.salvarMovimento = function () {
 
-    if ($scope.formCadMovimento.$valid) {
-      var dia=this.date.getDate();
-      var mes=this.date.getMonth();
-      var ano=this.date.getFullYear();
+    if (vm.formCadMovimento.$valid) {
+      let dia = vm.date.getDate();
+      let mes = vm.date.getMonth();
+      let ano = vm.date.getFullYear();
+
       let date = dia + '/' + (mes++) + '/' + ano;
-      this.capturaDadosCadMovimento.date = date;
+      
+      vm.capturaDadosCadMovimento.date = date;
 
-      //this.capturaDadosCadMovimento.value = this.capturaDadosCadMovimento.value.replace(',', '.');
+      //vm.capturaDadosCadMovimento.value = vm.capturaDadosCadMovimento.value.replace(',', '.');
 
-      cadastroMovimentosService.salvarMovimento(this.capturaDadosCadMovimento);
+      cadastroMovimentosService.salvarMovimento(vm.capturaDadosCadMovimento);
 
       $state.go('app.movimentos');
 
       $ionicPopup.alert({
-        title : 'Salvo!',
-        template : 'Movimento cadastrado com sucesso'
+        title: 'Salvo!',
+        template: 'Movimento cadastrado com sucesso'
 
       })
 
 
     } else {
-      $scope.apareceMensagem = true;
+      vm.apareceMensagem = true;
+
       $ionicPopup.alert({
-        title : 'Erro!',
-        template : 'Informações inválidas. Preencher formulário corretamente.'
+        title: 'Erro!',
+        template: 'Informações inválidas. Preencher formulário corretamente.'
 
       })
     }
-
   }
-
-
 })
