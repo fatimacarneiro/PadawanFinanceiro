@@ -12,7 +12,7 @@
 
     function resetUsuario() {
       delete $window.localStorage.currentUser;
-      $http.defaults.headers.common.Authorization = '';
+      $http.defaults.headers.common.Authorization = undefined;
     }
 
     vm.salvar = function () {
@@ -25,10 +25,8 @@
         return
       }
 
-      cadastroUsuarioService.salvarUsuario(this.capturaDadosUsuario).then(function (response) {
-
-        vm.apareceMensagem = false;
-        $state.go('app.movimentos');
+      cadastroUsuarioService.salvarUsuario(this.capturaDadosUsuario).then((response) => {
+        vm.validar();
       }).catch(function errorCallback() {
         $ionicPopup.alert({
           title: 'Erro!',
@@ -60,8 +58,6 @@
           $http.defaults.headers.common.Authorization = 'Bearer ' + response.headers('authorization');
 
           $state.go('app.movimentos');
-
-          console.log(response);
 
           $ionicPopup.alert({
             title: 'Bem vindo!',

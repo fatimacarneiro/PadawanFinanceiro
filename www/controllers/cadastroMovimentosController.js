@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('starter')
-    .controller('cadastroMovimentosController', function (cadastroMovimentosService, $state, $ionicPopup) {
+    .controller('cadastroMovimentosController', function (cadastroMovimentosService, $state, $ionicPopup, consultaMovimentosService) {
       var vm = this;
 
       function init() {
@@ -35,7 +35,8 @@
 
           //vm.capturaDadosCadMovimento.value = vm.capturaDadosCadMovimento.value.replace(',', '.');
 
-          cadastroMovimentosService.salvarMovimento(vm.capturaDadosCadMovimento);
+          cadastroMovimentosService.salvarMovimento(vm.capturaDadosCadMovimento)
+          .then(consultaMovimentosService.listarMovimentos());
 
           $state.go('app.movimentos');
 

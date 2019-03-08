@@ -1,9 +1,10 @@
 (function () {
   'use strict';
 
-  angular.module('starter').controller('tabelaController', function ($state, consultaMovimentosService, $ionicPopup) {
-
+  angular.module('starter').controller('tabelaController', function ($scope, $state, consultaMovimentosService, $ionicPopup) {
     var vm = this;
+    vm.$scope = $scope;
+
     vm.movimento = {}
     vm.saldoAtual = null;
     vm.saldoReceita = null;
@@ -16,18 +17,6 @@
     let atualizarMovimentos = res => {
       vm.listaMovimento = res.data
 
-      function calculaSaldoAtual (lista){
-        for(let i = 0; i < lista.length; i++){
-            if(lista[i].type === 'REVENUE'){    
-                $vm.saldoReceita = $vm.saldoReceita + lista[i].value;
-            }
-            else {
-                $vm.saldoDespesa = $vm.saldoDespesa + lista[i].value;
-            }
-        }
-        $vm.saldoAtual = $vm.saldoReceita - $vm.saldoDespesa;
-      }
-      
       vm.tabelaExibida = vm.listaMovimento;
 
       for (let i = 0; i < vm.tabelaExibida.length; i++) {
@@ -37,8 +26,6 @@
           vm.tabelaExibida[i].type = "Receita"
         }
       }
-      
-      calculaSaldoAtual($vm.listaMovimento);
     }
 
     function init() {
@@ -47,8 +34,8 @@
 
     init();
 
-    $vm.mudaTelaCadastro = function (){
-        $state.go('app.cadastroMovimentos');
+    vm.mudaTelaCadastro = function () {
+      $state.go('app.cadastroMovimentos');
     }
 
     vm.excluir = function (movimentoSelecionado) {
@@ -60,40 +47,41 @@
       confirmPopup.then(function (res) {
         if (res) {
           consultaMovimentosService.apagar(movimentoSelecionado.id)
-            .then(consultaMovimentosService.listarMovimentos())
-            .then(atualizarMovimentos);
+            .then(res => {
+              consultaMovimentosService.listarMovimentos().then(atualizarMovimentos)
+            })
         }
       });
     }
 
-    $vm.filtroAvancado = function(){
-        
-        $vm.filtra = function (){
-            $vm.tabelaExibida = $vm.listaMovimento
-                .filter(filtraValor)
-                .filter(filtraData)
-                .filter(filtraTipo);
-        }
-
-        $ionicPopup.show({
-            templateUrl: 'templates/filtroAvancado.html',
-            title: 'Filtro Avançado',
-            subTitle: 'Selecione os dados para filtrar',
-            vm: $vm,
-            buttons: [
-            {
-              text: '<b>Fechar</b>',
-              type: 'button-positive'    
-            }
-            ]
-        })
+    vm.filtra = function () {
+      debugger;
+      vm.tabelaExibida = vm.listaMovimento
+        .filter(filtraValor)
+        .filter(filtraData)
+        .filter(filtraTipo);
     }
-    
-    let filtraData = item => !$vm.movimento.date || item.date.match($vm.movimento.date, 'i')
-        
-    let filtraValor = item => !$vm.movimento.value || item.value === $vm.movimento.value
-    
-    let filtraTipo = item => !$vm.movimento.type || item.type === $vm.movimento.type
-})
+
+    vm.filtroAvancado = () => {
+      $ionicPopup.show({
+        templateUrl: 'templates/filtroAvancado.html',
+        title: 'Filtro Avançado',
+        subTitle: 'Selecione os dados para filtrar',
+        scope: vm.$scope,
+        buttons: [
+          {
+            text: '<b>Fechar</b>',
+            type: 'button-positive'
+          }
+        ]
+      })
+    }
+
+    let filtraData = item => !vm.movimento.date || item.date.match(vm.movimento.date, 'i')
+
+    let filtraValor = item => !vm.movimento.value || item.value === vm.movimento.value
+
+    let filtraTipo = item => !vm.movimento.type || item.type === vm.movimento.type
+  })
 })();
 
