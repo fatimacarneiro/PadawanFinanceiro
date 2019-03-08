@@ -1,23 +1,28 @@
-angular.module('starter')
-  .service('cadastroUsuarioService', function ($http) {
+(function () {
+  'use strict';
 
-    var url = 'http://localhost:8100/'
+  angular.module('starter')
+    .service('cadastroUsuarioService', function ($http) {
 
-    return {
-      validaUsuario,
-      salvarUsuario,
-    }
+      var url = 'http://localhost:8100/'
 
-    function salvarUsuario(usuario) {
+      return {
+        validaUsuario,
+        salvarUsuario,
+      }
 
-      var urlRequisicao = 'api/users/sign-up';
-      return $http.post(url + urlRequisicao, usuario);
-    }
+      function salvarUsuario(usuario) {
 
-    function validaUsuario(usuario){
-      var urlRequisicao = 'api/login';
+        var urlRequisicao = 'api/users/sign-up';
+        return $http.post(url + urlRequisicao, usuario);
+      }
 
-      return $http.post(url + urlRequisicao, usuario);
-    }
+      function validaUsuario(usuario) {
+        var urlRequisicao = 'api/login';
 
-  });
+        return $http.post(url + urlRequisicao, usuario);
+      }
+
+    });
+
+})();

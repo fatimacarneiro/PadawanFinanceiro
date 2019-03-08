@@ -1,31 +1,31 @@
-angular.module('starter').service('consultaMovimentosService', function ($http) {
+(function () {
+  'use strict';
 
-  var url = 'http://localhost:8100/'
+  angular.module('starter').service('consultaMovimentosService', function ($http) {
 
-  return {
-    listarMovimentos,
-    apagar
-  }
+    var url = 'http://localhost:8100/'
 
-  function listarMovimentos() {
+    return {
+      listarMovimentos,
+      apagar
+    }
 
-    var urlRequisicao = 'api/transactions';
+    function listarMovimentos() {
 
-    var raiz = 'http://localhost:8100/';
+      var urlRequisicao = 'api/transactions';
 
-    return $http.get(raiz + urlRequisicao).then(function successCallback(responseData) {
-      return responseData.data
-    })
-  }
+      var raiz = 'http://localhost:8100/';
 
-  function apagar(id) {
-    var urlRequisicao = 'api/transactions/';
+      return $http.get(raiz + urlRequisicao);
+    }
 
-    var raiz = 'http://localhost:8100/';
+    function apagar(id) {
+      var urlRequisicao = 'api/transactions/';
 
-    return $http.delete(raiz + urlRequisicao + id).then(function successCallback(responseData) {
-    }).catch(function errorCallback() {
-      alert('Não foi possível conectar ao servidor, por favor verifique sua conexão com a internet');
-    })
-  }
-})
+      var raiz = 'http://localhost:8100/';
+
+      return $http.delete(raiz + urlRequisicao + id);
+    }
+  })
+
+})();

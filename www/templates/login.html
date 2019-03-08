@@ -1,28 +1,28 @@
 <ion-view>
   <ion-content class="conteudo" ng-controller="loginController">
-   <h3>Padawan Financeiro</h3>
-    <form name="formLogin">
+    <h3>Padawan Financeiro</h3>
+    <form name="vm.formLogin">
       <div class="list list-inset">
         <label class="item item-input">
           <span class="input-label">Email</span>
-          <input type="text" name="emailLogin" ng-model="capturaDadosUsuario.username" placeholder="usuario@email.com.br"
+          <input type="text" name="emailLogin" ng-model="vm.capturaDadosUsuario.username" placeholder="usuario@email.com.br"
             ng-pattern="/(^[A-z0-9\.]{1,29}@[A-z]*(.com.br|.com)$)|(admin)/" required>
         </label>
-        <span ng-show="apareceMensagem && formLogin.emailLogin.$error.required" class="form-control alert-danger">
+        <span ng-show="vm.apareceMensagem && vm.formLogin.emailLogin.$error.required" class="form-control alert-danger">
           Email incorreto!
         </span>
 
         <label class="item item-input">
           <span class="input-label">Senha</span>
-          <input type="password" name="senhaLogin" ng-model="capturaDadosUsuario.password" placeholder="Insira sua senha aqui"
+          <input type="password" name="senhaLogin" ng-model="vm.capturaDadosUsuario.password" placeholder="Insira sua senha aqui"
             ng-pattern="/^[^\W_]{8,12}$/" required>
         </label>
-        <span ng-show="apareceMensagem && formLogin.senhaLogin.$error.required" class="form-control alert-danger">
+        <span ng-show="vm.apareceMensagem && vm.formLogin.senhaLogin.$error.required" class="form-control alert-danger">
           A senha deve ter 8 a 12 digitos.
         </span>
 
-        <button class="button button-block button-positive" type="submit" ng-click="validar()">Entrar</button>
-        <button class="button button-block button-positive" type="submit" ng-click="salvar()">Novo Usuário</button>
+        <button class="button button-block button-positive" type="submit" ng-click="vm.validar()">Entrar</button>
+        <button class="button button-block button-positive" type="submit" ng-click="vm.salvar()">Novo Usuário</button>
       </div>
     </form>
   </ion-content>

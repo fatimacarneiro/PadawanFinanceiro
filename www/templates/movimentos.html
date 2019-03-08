@@ -1,14 +1,14 @@
-<ion-view view-title="Consultas de Receitas/Despesas">
+<ion-view cache-view="false" view-title="Consultas de Receitas/Despesas">
   <ion-content>
     <div class="bar bar-header item-input-inset">
       <label class="item-input-wrapper">
         <i class="icon ion-ios-search placeholder-icon"></i>
-        <input ng-change="filtraDescricao(textoPesquisa)" ng-model="textoPesquisa" type="search" placeholder="Buscar Item por Descrição">
+        <input ng-change="filtraDescricao(textoPesquisa)" ng-model="vm.textoPesquisa" type="search" placeholder="Buscar Item por Descrição">
       </label>
-      <a class="button button-icon icon ion-settings" ng-click="filtroAvancado()"></a>
+      <a class="button button-icon icon ion-settings" ng-click="vm.filtroAvancado()"></a>
     </div>
     <ion-list>
-      <ion-item ng-repeat="movimento in tabelaExibida">
+      <ion-item ng-repeat="movimento in vm.tabelaExibida">
         <div class="card">
           <div class="item item-divider">
             {{movimento.type}} - {{movimento.date}}
@@ -20,7 +20,7 @@
               <li class="item item-toggle">
                 R{{movimento.value | currency }}
                 <label class="toggle toggle-assertive">
-                  <button ng-click="excluir(movimento)" class="button"><i class="icon ion-trash-a"></i></button>
+                  <button ng-click="vm.excluir(movimento)" class="button"><i class="icon ion-trash-a"></i></button>
                 </label>
               </li>
             </ul>
@@ -28,7 +28,8 @@
         </div>
       </ion-item>
     </ion-list>
-    <button class="button button-block button-positive" ng-click="mudaTelaCadastro(cadastroMovimentos)">Adicionar nova
+    <button class="button button-block button-positive" ng-click="vm.mudaTelaCadastro(cadastroMovimentos)">Adicionar
+      nova
       Receita/Despesa</button>
   </ion-content>
 </ion-view>

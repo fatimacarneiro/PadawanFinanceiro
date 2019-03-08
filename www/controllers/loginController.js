@@ -1,78 +1,96 @@
-angular.module('starter').controller('loginController', function ($scope, cadastroUsuarioService, $state, $ionicPopup, $http) {
-  $scope.apareceMensagem = false;
+(function () {
+  'use strict';
 
-  function resetUsuario() {
-    $http.defaults.headers.common.Authorization = 'Bearer';
-  }
+  angular.module('starter')
+    .controller('loginController', loginController);
 
-  $scope.capturaDadosUsuario = {
-    username: null,
-    password: null,
-  };
+  loginController.$inject = ['cadastroUsuarioService', '$state', '$ionicPopup', '$http', '$window'];
 
-  $scope.salvar = function () {
-    if (!$scope.formLogin.$valid) {
-      $scope.apareceMensagem = true;
-      $ionicPopup.alert({
-        title: 'Erro!',
-        template: 'Informações inválidas. Preencher formulário corretamente.'
-      })
-      return
+  function loginController(cadastroUsuarioService, $state, $ionicPopup, $http, $window) {
+    /* jshint validthis: true */
+    var vm = this;
+
+    function resetUsuario() {
+      delete $window.localStorage.currentUser;
+      $http.defaults.headers.common.Authorization = '';
     }
 
-    cadastroUsuarioService.salvarUsuario(this.capturaDadosUsuario).then(function (response) {
-
-      $scope.apareceMensagem = false;
-      $state.go('app.movimentos');
-    }).catch(function errorCallback() {
-      $ionicPopup.alert({
-        title: 'Erro!',
-        template: 'Não foi possível salvar o usuário.'
-      })
-    })
-
-  }
-
-  $scope.validar = function () {
-    if (!$scope.formLogin.$valid) {
-      $scope.apareceMensagem = true;
-
-      $ionicPopup.alert({
-        title: 'Erro!',
-        template: 'Campos preenchidos incorretamente'
-      })
-
-      return;
-    }
-
-    function setToken(token) {
-      $http.defaults.headers.common['Authorization'] = token;
-    }
-
-    cadastroUsuarioService.validaUsuario(this.capturaDadosUsuario)
-      .then(function (response) {
-        $scope.apareceMensagem = false;
-
-        setToken(response.headers('authorization'));
-
-        $state.go('app.movimentos');
-        console.log(response);
+    vm.salvar = function () {
+      if (!vm.formLogin.$valid) {
+        vm.apareceMensagem = true;
         $ionicPopup.alert({
-          title: 'Bem vindo!',
-          template: 'Agora você pode controlar as suas finanças.'
+          title: 'Erro!',
+          template: 'Informações inválidas. Preencher formulário corretamente.'
         })
+        return
+      }
 
+      cadastroUsuarioService.salvarUsuario(this.capturaDadosUsuario).then(function (response) {
+
+        vm.apareceMensagem = false;
+        $state.go('app.movimentos');
       }).catch(function errorCallback() {
         $ionicPopup.alert({
           title: 'Erro!',
-          template: 'Login ou senha inválido.'
+          template: 'Não foi possível salvar o usuário.'
         })
       })
-  }
 
-  $scope.logout = function () {
-    resetUsuario();
-  }
+    }
 
-  resetUsuario();
-})
+    vm.validar = function () {
+      if (!vm.formLogin.$valid) {
+        vm.apareceMensagem = true;
+
+        $ionicPopup.alert({
+          title: 'Erro!',
+          template: 'Campos preenchidos incorretamente'
+        })
+
+        return;
+      }
+
+      cadastroUsuarioService.validaUsuario(this.capturaDadosUsuario)
+        .then(function (response) {
+          vm.apareceMensagem = false;
+
+          $window.localStorage.currentUser = {
+            token: response.token
+          };
+
+          $http.defaults.headers.common.Authorization = 'Bearer ' + response.headers('authorization');
+
+          $state.go('app.movimentos');
+
+          console.log(response);
+
+          $ionicPopup.alert({
+            title: 'Bem vindo!',
+            template: 'Agora você pode controlar as suas finanças.'
+          })
+
+        }).catch(function errorCallback() {
+          $ionicPopup.alert({
+            title: 'Erro!',
+            template: 'Login ou senha inválido.'
+          })
+        })
+    }
+
+    vm.logout = function () {
+      resetUsuario();
+    }
+
+    function init() {
+      vm.apareceMensagem = false;
+      vm.capturaDadosUsuario = {
+        username: null,
+        password: null,
+      };
+
+      resetUsuario();
+    }
+
+    init();
+  }
+})();
